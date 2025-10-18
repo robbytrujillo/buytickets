@@ -7,8 +7,11 @@ use Filament\Tables;
 use App\Models\Category;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Nette\Utils\ImageColor;
 use Filament\Resources\Resource;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Forms\Components\FileUpload;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\CategoryResource\Pages;
@@ -43,6 +46,11 @@ class CategoryResource extends Resource
         return $table
             ->columns([
                 //
+                TextColumn::make('name')
+                ->searchable(),
+
+                ImageColumn::make('icon')
+                ->circular(),
             ])
             ->filters([
                 //
