@@ -7,16 +7,16 @@ use Filament\Tables;
 use App\Models\Category;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
-use Nette\Utils\ImageColor;
 use Filament\Resources\Resource;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Forms\Components\TextInput;
+// use Filament\Forms\Components\TextInput;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Forms\Components\FileUpload;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\CategoryResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\CategoryResource\RelationManagers;
+use Filament\Forms\FormsComponent;
 
 class CategoryResource extends Resource
 {
@@ -29,12 +29,21 @@ class CategoryResource extends Resource
         return $form
             ->schema([
                 //
-                TextInput::make('name')
+                Forms\Components\TextInput::make('name')
                 ->minLength(2)
                 ->maxLength(255),
 
-                FileUpload::make('icon')
+                // Forms\Components\FileUpload::make('icon')
+                // ->image()
+                // ->required(),
+
+                Forms\Components\FileUpload::make('icon')
+                ->label('Icon')
                 ->image()
+                ->disk('public')
+                ->visibility('public')
+                ->imagePreviewHeight('150')
+                ->maxSize(2048)
                 ->required(),
             ]);
 
@@ -46,10 +55,12 @@ class CategoryResource extends Resource
         return $table
             ->columns([
                 //
-                TextColumn::make('name')
+                Tables\Columns\TextColumn::make('name')
                 ->searchable(),
 
-                ImageColumn::make('icon')
+                Tables\Columns\ImageColumn::make('icon')
+                ->disk('public')
+                ->visibility('public')
                 ->circular(),
             ])
             ->filters([
