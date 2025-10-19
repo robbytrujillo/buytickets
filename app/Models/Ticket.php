@@ -23,7 +23,7 @@ class Ticket extends Model
         'is_popular',
         'about',
         'open_time_at',
-        'closed_time_at',
+        'close_time_at',
         'category_id',
         'seller_id',
         'slug',

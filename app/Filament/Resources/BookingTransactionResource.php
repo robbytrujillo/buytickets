@@ -24,6 +24,19 @@ class BookingTransactionResource extends Resource
         return $form
             ->schema([
                 //
+                Forms\Components\Wizard::make([
+
+                    Forms\Components\Wizard\Step::make('Product And Price')
+                    ->schema([
+                        // ...
+                        Forms\Components\Select::make('ticket_id')
+                        ->relationship('ticket', 'name')
+                        ->searchable()
+                        ->preload()
+                        ->required()
+                        ->reactive()
+                    ]),
+                ])
             ]);
     }
 
