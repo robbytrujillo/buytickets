@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\BookingTransactionResource\Pages;
 use App\Filament\Resources\BookingTransactionResource\RelationManagers;
 use App\Models\BookingTransaction;
+use App\Models\Ticket;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -35,6 +36,32 @@ class BookingTransactionResource extends Resource
                         ->preload()
                         ->required()
                         ->reactive()
+                        ->afterStateUpdated(function($state, callable $set) {
+                            $ticket = Ticket::find($state);
+                            $set('price', $ticket ? $ticket->price : 0);
+                        }),
+                        
+                        Forms\Components\TextInput::make('total_participant')
+                        ->required()
+                        ->numeric()
+                        ->prefix('People')
+                        ->reactive()
+                        ->afterStateUpdated(function($state, callable $get, callable $set) {
+                            $price = $get('price');
+                            $subTotal = $price * $state;
+                            $totalPpn = $subTotal * 0.11;
+                            $totalAmount = $subTotal + $totalPpn;
+                           
+                            $set('total_amount', $totalAmount);
+                        }),
+                        
+                        Forms\Components\TextInput::make('total_amount')
+                        ->required()
+                        ->numeric()
+                        ->prefix('IDR')
+                        ->readOnly()
+                        ->helperText('Harga Sudah Include PPN 11%'),
+                        
                     ]),
                 ])
             ]);
