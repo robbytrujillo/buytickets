@@ -31,38 +31,81 @@ class BookingTransactionResource extends Resource
                     ->schema([
                         // ...
                         Forms\Components\Select::make('ticket_id')
-                        ->relationship('ticket', 'name')
-                        ->searchable()
-                        ->preload()
-                        ->required()
-                        ->reactive()
-                        ->afterStateUpdated(function($state, callable $set) {
-                            $ticket = Ticket::find($state);
-                            $set('price', $ticket ? $ticket->price : 0);
-                        }),
+                            ->relationship('ticket', 'name')
+                            ->searchable()
+                            ->preload()
+                            ->required()
+                            ->reactive()
+                            ->afterStateUpdated(function($state, callable $set) {
+                                $ticket = Ticket::find($state);
+                                $set('price', $ticket ? $ticket->price : 0);
+                            }),
                         
                         Forms\Components\TextInput::make('total_participant')
-                        ->required()
-                        ->numeric()
-                        ->prefix('People')
-                        ->reactive()
-                        ->afterStateUpdated(function($state, callable $get, callable $set) {
-                            $price = $get('price');
-                            $subTotal = $price * $state;
-                            $totalPpn = $subTotal * 0.11;
-                            $totalAmount = $subTotal + $totalPpn;
-                           
-                            $set('total_amount', $totalAmount);
-                        }),
+                            ->required()
+                            ->numeric()
+                            ->prefix('People')
+                            ->reactive()
+                            ->afterStateUpdated(function($state, callable $get, callable $set) {
+                                $price = $get('price');
+                                $subTotal = $price * $state;
+                                $totalPpn = $subTotal * 0.11;
+                                $totalAmount = $subTotal + $totalPpn;
+                            
+                                $set('total_amount', $totalAmount);
+                            }),         
                         
                         Forms\Components\TextInput::make('total_amount')
-                        ->required()
-                        ->numeric()
-                        ->prefix('IDR')
-                        ->readOnly()
-                        ->helperText('Harga Sudah Include PPN 11%'),
+                            ->required()
+                            ->numeric()
+                            ->prefix('IDR')
+                            ->readOnly()
+                            ->helperText('Harga Sudah Include PPN 11%'),
                         
                     ]),
+
+                    Forms\Components\Wizard\Step::make('Customer Information')
+                    ->schema([
+                        // ...
+                        Forms\Components\TextInput::make('name')
+                            ->required()
+                            ->maxLength(255),
+
+                        Forms\Components\TextInput::make('phone_number')
+                            ->required()
+                            ->maxLength(255),
+                           
+                        Forms\Components\TextInput::make('email')
+                            ->required()
+                            ->maxLength(255),
+                        
+                        Forms\Components\TextInput::make('booking_trx_id')
+                            ->required()
+                            ->maxLength(255),
+                    ]),
+                    
+                    Forms\Components\Wizard\Step::make('Payment Information')
+                    ->schema([
+                        // ...
+                        Forms\Components\ToggleButtons::make('is_paid')
+                            ->label('Apakah sudah membayar?')
+                            ->boolean()
+                            ->grouped()
+                            ->icons([
+                                true => 'heroicon-o-pencil',
+                                false => 'heroicon-o-clock',
+                            ])
+                            ->required(),
+
+                        Forms\Components\FileUpload::make('proof')
+                            ->image()
+                            ->required(),
+                           
+                        Forms\Components\DatePicker::make('started_at')
+                            ->required(),
+                            
+                    ]),
+                    
                 ])
             ]);
     }
