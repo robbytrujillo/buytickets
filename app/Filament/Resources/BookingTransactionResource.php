@@ -10,6 +10,7 @@ use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -107,6 +108,10 @@ class BookingTransactionResource extends Resource
                     ]),
                     
                 ])
+                ->columnSpan('full')
+                ->columns(1)
+                ->skippable()
+
             ]);
     }
 
@@ -115,12 +120,33 @@ class BookingTransactionResource extends Resource
         return $table
             ->columns([
                 //
+                Tables\Columns\ImageColumn::make('ticket.thumbnail')
+                    ->circular(),
+
+                Tables\Columns\TextColumn::make('name')
+                    ->searchable(),
+                
+                Tables\Columns\TextColumn::make('booking_trx_id')
+                    ->searchable(),
+
+                Tables\Columns\IconColumn::make('is_paid')
+                    ->boolean()
+                    ->trueColor('success')
+                    ->falseColor('danger')
+                    ->trueIcon('heroicon-o-check-circle')
+                    ->falseIcon('heroicon-o-x-circle')
+                    ->label('Terverifikasi')
+
             ])
             ->filters([
                 //
+                SelectFilter::make('ticket_id')
+                ->label('ticket')
+                ->relationship('ticket','name')
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\ViewAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
