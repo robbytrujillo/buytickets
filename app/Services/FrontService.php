@@ -16,7 +16,7 @@ class FrontService {
 
     public function getFrontPageData() {
         $categories = $this->categoryRepository->getAllCategories();
-        $popularTicket = $this->ticketRepository->getPopularTickets(4);
+        $popularTickets = $this->ticketRepository->getPopularTickets(4);
         $newTickets = $this->ticketRepository->getAllNewTickets();
 
         return compact('categories', 'popularTickets', 'newTickets');
