@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Ticket;
 use Illuminate\Http\Request;
+use App\Services\FrontService;
 
 class FrontController extends Controller
 {
@@ -17,7 +18,9 @@ class FrontController extends Controller
     // konsep service repository pattern
     public function index() {
         $data = $this->frontService->getFrontPageData();
-        return view('front.index', $data);
+
+        dd($data);
+        // return view('front.index', $data);
     }
 
     // konsep MVC
