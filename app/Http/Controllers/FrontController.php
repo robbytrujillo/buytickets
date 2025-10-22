@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Ticket;
 use Illuminate\Http\Request;
 use App\Services\FrontService;
@@ -21,6 +22,17 @@ class FrontController extends Controller
 
         dd($data);
         // return view('front.index', $data);
+    }
+
+    public function details(Ticket $ticket) {
+        dd($ticket);
+        // return view('front.details', compact('ticket'));
+    }
+
+    public function category(Category $category) {
+        // $categories = $this->frontService->getAllCategories();
+        dd($category);
+        // return view('front.category', compact('category'));
     }
 
     // konsep MVC
