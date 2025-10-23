@@ -23,6 +23,11 @@ class StoreBookingRequest extends FormRequest
     {
         return [
             //
+            'name' => ['required', 'stirng', 'max:255'],
+            'phone_number' => ['required', 'stirng', 'max:255'],
+            'email' => ['required', 'stirng', 'lowercase', 'email', 'max:255'],
+            'started_at' => ['required', 'date', 'after:today'],
+            'total_participant' => 'required|integer\min:1',
         ];
     }
 }
