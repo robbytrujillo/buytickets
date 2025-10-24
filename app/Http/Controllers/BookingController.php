@@ -23,8 +23,10 @@ class BookingController extends Controller
 
     public function bookingStore(Ticket $ticket, StoreBookingRequest $request) {
         $validated = $request->validated();
-
+        // array data
+        
         $totals = $this->bookingService->calculateTotals($ticket->id, $validated['total_participant']);
+        
         $this->bookingService->storeBookingInSession($ticket, $validated, $totals);
 
         return redirect()->route('front.payment');

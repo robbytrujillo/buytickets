@@ -42,4 +42,11 @@ class BookingService {
             'total_amount' => $totals['total_amount'],
         ]);
     }
+
+    public function payment() {
+        $booking = session('booking');
+        $ticket = $this->ticketRepository->find($booking['ticket_id']);
+
+        return compact('booking', 'ticket');
+    }
 }
