@@ -31,4 +31,9 @@ class BookingController extends Controller
 
         return redirect()->route('front.payment');
     }
+
+    public function payment() {
+        $data = $this->bookingService->payment();
+        return view('front.payment', $data);
+    }
 }

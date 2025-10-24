@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\BookingTransaction;
 use App\Repositories\Contracts\BookingRepositoryInterface;
 use App\Repositories\Contracts\TicketRepositoryInterface;
 
@@ -25,7 +26,7 @@ class BookingService {
         return [
             'sub_total' => $subTotal,
             'total_ppn' => $totalPpn,
-            'total_amount' => $totalAmount,
+            'ticket_id' => $totalAmount,
         ];
     }
 
@@ -48,5 +49,33 @@ class BookingService {
         $ticket = $this->ticketRepository->find($booking['ticket_id']);
 
         return compact('booking', 'ticket');
+    }
+
+    public function paymentStore(array $validated) {
+        $booking = session('booking');
+        $bookingTransactionId = null;
+
+        DB::transaction(function() use ($validated, $bookingTransactionId, $booking) {
+           if (isset($validated['proof'])) {
+            $proofPath = $validated['proof']->store('proofs', 'public');
+            $validated['proof'] = $proofPath;
+           }
+
+           $validated['name'] = $booking['name'];
+           $validated['email'] = $booking['email'];
+           $validated['phone_number'] = $booking['phone_number'];
+           $validated['total_participant'] = $booking['total_participant'];
+           $validated['started_at'] = $booking['started_at'];
+           $validated['total_amount'] = $booking['total_amount'];
+           $validated['ticket_id'] = $booking['ticket_id'];
+           $validated['is_paid'] = false;
+           $validated['booking_trx_id'] = BookingTransaction::generateUniqueTrxId();
+
+           $newBooking = $this->bookingRepository->createBooking($validated);
+
+           $bookingTransactionId = $newBooking->id;
+        });
+
+        return $bookingTransactionId;
     }
 }
