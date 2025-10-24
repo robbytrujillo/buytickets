@@ -3,8 +3,9 @@
 namespace App\Services;
 
 use App\Models\BookingTransaction;
-use App\Repositories\Contracts\BookingRepositoryInterface;
+use Illuminate\Support\Facades\DB;
 use App\Repositories\Contracts\TicketRepositoryInterface;
+use App\Repositories\Contracts\BookingRepositoryInterface;
 
 class BookingService {
     protected $ticketRepository;
