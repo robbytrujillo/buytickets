@@ -56,10 +56,11 @@ class BookingService {
         $booking = session('booking');
         $bookingTransactionId = null;
 
-        DB::transaction(function() use ($validated, $bookingTransactionId, $booking) {
-           if (isset($validated['proof'])) {
-            $proofPath = $validated['proof']->store('proofs', 'public');
-            $validated['proof'] = $proofPath;
+        DB::transaction(function() use ($validated, &$bookingTransactionId, $booking) {
+           
+            if (isset($validated['proof'])) {
+                $proofPath = $validated['proof']->store('proofs', 'public');
+                $validated['proof'] = $proofPath;
            }
 
            $validated['name'] = $booking['name'];
