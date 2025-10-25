@@ -80,71 +80,24 @@
                 <h2 class="px-4 font-bold">You Should Visit</h2>
                 <div class="w-full overflow-hidden swiper-visit">
                     <div class="swiper-wrapper">
-                        <div class="swiper-slide !w-fit">
-                            <a href="city.html" class="card">
-                                <div class="relative flex items-end w-[170px] h-[200px] shrink-0 rounded-[30px] bg-[#D9D9D9] overflow-hidden">
-                                    <img src="{{asset('assets/images/thumbnails/thumbnail-4.png')}}" class="absolute object-cover w-full h-full" alt="thumbnail">
-                                    <div class="flex items-center justify-between w-full h-fit rounded-[17px] border border-white/40 p-[8px_10px] mx-[10px] mb-[10px] bg-[#94959966] backdrop-blur-sm">
-                                        <div>
-                                            <h3 class="font-bold text-white">Bogor</h3>
-                                            <p class="text-sm leading-[18px] text-white">31,473 Places</p>
+
+                        @forelse ($sellers as $itemSeller)
+                            <div class="swiper-slide !w-fit">
+                                <a href="city.html" class="card">
+                                    <div class="relative flex items-end w-[170px] h-[200px] shrink-0 rounded-[30px] bg-[#D9D9D9] overflow-hidden">
+                                        <img src="{{Storage::url($itemSeller->photo)}}" class="absolute object-cover w-full h-full" alt="thumbnail">
+                                        <div class="flex items-center justify-between w-full h-fit rounded-[17px] border border-white/40 p-[8px_10px] mx-[10px] mb-[10px] bg-[#94959966] backdrop-blur-sm">
+                                            <div>
+                                                <h3 class="font-bold text-white">{{ $itemSeller->name }}</h3>
+                                                <p class="text-sm leading-[18px] text-white">{{ $itemSeller->tickets->count() }} Places</p>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="swiper-slide !w-fit">
-                            <a href="city.html" class="card">
-                                <div class="relative flex items-end w-[170px] h-[200px] shrink-0 rounded-[30px] bg-[#D9D9D9] overflow-hidden">
-                                    <img src="{{asset('assets/images/thumbnails/thumbnail-ballon.png')}}" class="absolute object-cover w-full h-full" alt="thumbnail">
-                                    <div class="flex items-center justify-between w-full h-fit rounded-[17px] border border-white/40 p-[8px_10px] mx-[10px] mb-[10px] bg-[#94959966] backdrop-blur-sm">
-                                        <div>
-                                            <h3 class="font-bold text-white">Turkey</h3>
-                                            <p class="text-sm leading-[18px] text-white">31,473 Places</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="swiper-slide !w-fit">
-                            <a href="city.html" class="card">
-                                <div class="relative flex items-end w-[170px] h-[200px] shrink-0 rounded-[30px] bg-[#D9D9D9] overflow-hidden">
-                                    <img src="{{asset('assets/images/thumbnails/thumbnail-6.png')}}" class="absolute object-cover w-full h-full" alt="thumbnail">
-                                    <div class="flex items-center justify-between w-full h-fit rounded-[17px] border border-white/40 p-[8px_10px] mx-[10px] mb-[10px] bg-[#94959966] backdrop-blur-sm">
-                                        <div>
-                                            <h3 class="font-bold text-white">Bogor</h3>
-                                            <p class="text-sm leading-[18px] text-white">31,473 Places</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="swiper-slide !w-fit">
-                            <a href="city.html" class="card">
-                                <div class="relative flex items-end w-[170px] h-[200px] shrink-0 rounded-[30px] bg-[#D9D9D9] overflow-hidden">
-                                    <img src="{{asset('assets/images/thumbnails/thumbnail-7.png')}}" class="absolute object-cover w-full h-full" alt="thumbnail">
-                                    <div class="flex items-center justify-between w-full h-fit rounded-[17px] border border-white/40 p-[8px_10px] mx-[10px] mb-[10px] bg-[#94959966] backdrop-blur-sm">
-                                        <div>
-                                            <h3 class="font-bold text-white">Bogor</h3>
-                                            <p class="text-sm leading-[18px] text-white">31,473 Places</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="swiper-slide !w-fit">
-                            <a href="city.html" class="card">
-                                <div class="relative flex items-end w-[170px] h-[200px] shrink-0 rounded-[30px] bg-[#D9D9D9] overflow-hidden">
-                                    <img src="{{asset('assets/images/thumbnails/thumbnail-8.png')}}" class="absolute object-cover w-full h-full" alt="thumbnail">
-                                    <div class="flex items-center justify-between w-full h-fit rounded-[17px] border border-white/40 p-[8px_10px] mx-[10px] mb-[10px] bg-[#94959966] backdrop-blur-sm">
-                                        <div>
-                                            <h3 class="font-bold text-white">Bogor</h3>
-                                            <p class="text-sm leading-[18px] text-white">31,473 Places</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
+                                </a>
+                            </div>
+                        @empty
+                            
+                        @endforelse
                     </div>
                 </div>
             </section>
