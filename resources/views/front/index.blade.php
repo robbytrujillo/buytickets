@@ -27,7 +27,7 @@
 
                         @forelse ($popularTickets as $itemPopularTicket)
                             <div class="swiper-slide !w-fit">
-                            <a href="details.html" class="card">
+                            <a href="{{ route('front.details', $itemPopularTicket->slug) }}" class="card">
                                 <div class="relative flex items-end w-[345px] h-[220px] shrink-0 rounded-[30px] bg-[#D9D9D9] overflow-hidden">
                                     <img src="{{Storage::url($itemPopularTicket->thumbnail)}}" class="absolute object-cover w-full h-full" alt="thumbnail">
                                     <div class="flex items-center justify-between w-full h-fit rounded-[17px] border border-white/40 p-[8px_10px] mx-4 mb-4 bg-[#94959966] backdrop-blur-sm">
@@ -104,90 +104,39 @@
             <section id="Available" class="flex flex-col gap-3 px-4 py-5 bg-[#F8F8F9] mb-[94px]">
                 <h2 class="font-bold">Now Available</h2>
                 <div class="flex flex-col gap-3">
-                    <a href="details.html" class="card">
-                        <div class="flex items-center justify-between rounded-3xl p-[6px] pr-[14px] bg-white overflow-hidden">
-                            <div class="flex items-center gap-[14px]">
-                                <div class="flex w-[90px] h-[90px] shrink-0 rounded-3xl bg-[#D9D9D9] overflow-hidden">
-                                    <img src="{{asset('assets/images/thumbnails/thumbnail-7.png')}}" class="object-cover w-full h-full" alt="thumbnail">
-                                </div>
-                                <div class="flex flex-col gap-[6px]">
-                                    <h3 class="font-semibold">Bun JS Tower</h3>
-                                    <div class="flex items-center gap-1">
-                                        <img src="{{asset('assets/images/icons/location.svg')}}" class="w-[18px] h-[18px]" alt="icon">
-                                        <p class="font-semibold text-xs leading-[18px]">Shanghai</p>
+
+                    @forelse ($newTickets as $itemNewTicket)
+                        <a href="{{ route('front.details', $itemNewTicket->slug) }}" class="card">
+                            <div class="flex items-center justify-between rounded-3xl p-[6px] pr-[14px] bg-white overflow-hidden">
+                                <div class="flex items-center gap-[14px]">
+                                    <div class="flex w-[90px] h-[90px] shrink-0 rounded-3xl bg-[#D9D9D9] overflow-hidden">
+                                        <img src="{{Storage::url($itemNewTicket->thumbnail)}}" class="object-cover w-full h-full" alt="thumbnail">
                                     </div>
-                                    <p class="font-bold text-sm leading-[21px] text-[#F97316]">Rp 889.000</p>
-                                </div>
-                            </div>
-                            <p class="w-fit flex shrink-0 items-center gap-[2px] rounded-full p-[6px_8px] bg-[#FFE5D3]">
-                                <img src="{{asset('assets/images/icons/Star 1.svg')}}" class="w-4 h-4" alt="star">
-                                <span class="font-semibold text-xs leading-[18px] text-[#F97316]">4/5</span>
-                            </p>
-                        </div>
-                    </a>
-                    <a href="details.html" class="card">
-                        <div class="flex items-center justify-between rounded-3xl p-[6px] pr-[14px] bg-white overflow-hidden">
-                            <div class="flex items-center gap-[14px]">
-                                <div class="flex w-[90px] h-[90px] shrink-0 rounded-3xl bg-[#D9D9D9] overflow-hidden">
-                                    <img src="{{asset('assets/images/thumbnails/thumbnail-6.png')}}" class="object-cover w-full h-full" alt="thumbnail">
-                                </div>
-                                <div class="flex flex-col gap-[6px]">
-                                    <h3 class="font-semibold">Jewel Fun Park</h3>
-                                    <div class="flex items-center gap-1">
-                                        <img src="{{asset('assets/images/icons/location.svg')}}" class="w-[18px] h-[18px]" alt="icon">
-                                        <p class="font-semibold text-xs leading-[18px]">Singapore</p>
+                                    <div class="flex flex-col gap-[6px]">
+                                        <h3 class="font-semibold">
+                                            {{ $itemNewTicket->name }}
+                                        </h3>
+                                        <div class="flex items-center gap-1">
+                                            <img src="{{asset('assets/images/icons/location.svg')}}" class="w-[18px] h-[18px]" alt="icon">
+                                            <p class="font-semibold text-xs leading-[18px]">
+                                                {{ $itemNewTicket->seller->name }}
+                                            </p>
+                                        </div>
+                                        <p class="font-bold text-sm leading-[21px] text-[#F97316]">
+                                            Rp {{ number_format($itemNewTicket->price, 0, '.', ',') }}
+                                        </p>
                                     </div>
-                                    <p class="font-bold text-sm leading-[21px] text-[#F97316]">Rp 564.000.000</p>
                                 </div>
+                                <p class="w-fit flex shrink-0 items-center gap-[2px] rounded-full p-[6px_8px] bg-[#FFE5D3]">
+                                    <img src="{{asset('assets/images/icons/Star 1.svg')}}" class="w-4 h-4" alt="star">
+                                    <span class="font-semibold text-xs leading-[18px] text-[#F97316]">4/5</span>
+                                </p>
                             </div>
-                            <p class="w-fit flex shrink-0 items-center gap-[2px] rounded-full p-[6px_8px] bg-[#FFE5D3]">
-                                <img src="{{asset('assets/images/icons/Star 1.svg')}}" class="w-4 h-4" alt="star">
-                                <span class="font-semibold text-xs leading-[18px] text-[#F97316]">4/5</span>
-                            </p>
-                        </div>
-                    </a>
-                    <a href="details.html" class="card">
-                        <div class="flex items-center justify-between rounded-3xl p-[6px] pr-[14px] bg-white overflow-hidden">
-                            <div class="flex items-center gap-[14px]">
-                                <div class="flex w-[90px] h-[90px] shrink-0 rounded-3xl bg-[#D9D9D9] overflow-hidden">
-                                    <img src="{{asset('assets/images/thumbnails/thumbnail-2.png')}}" class="object-cover w-full h-full" alt="thumbnail">
-                                </div>
-                                <div class="flex flex-col gap-[6px]">
-                                    <h3 class="font-semibold">London Trip</h3>
-                                    <div class="flex items-center gap-1">
-                                        <img src="{{asset('assets/images/icons/location.svg')}}" class="w-[18px] h-[18px]" alt="icon">
-                                        <p class="font-semibold text-xs leading-[18px]">London</p>
-                                    </div>
-                                    <p class="font-bold text-sm leading-[21px] text-[#F97316]">Rp 12.250.000</p>
-                                </div>
-                            </div>
-                            <p class="w-fit flex shrink-0 items-center gap-[2px] rounded-full p-[6px_8px] bg-[#FFE5D3]">
-                                <img src="{{asset('assets/images/icons/Star 1.svg')}}" class="w-4 h-4" alt="star">
-                                <span class="font-semibold text-xs leading-[18px] text-[#F97316]">4/5</span>
-                            </p>
-                        </div>
-                    </a>
-                    <a href="details.html" class="card">
-                        <div class="flex items-center justify-between rounded-3xl p-[6px] pr-[14px] bg-white overflow-hidden">
-                            <div class="flex items-center gap-[14px]">
-                                <div class="flex w-[90px] h-[90px] shrink-0 rounded-3xl bg-[#D9D9D9] overflow-hidden">
-                                    <img src="{{asset('assets/images/thumbnails/thumbnail-8.png')}}" class="object-cover w-full h-full" alt="thumbnail">
-                                </div>
-                                <div class="flex flex-col gap-[6px]">
-                                    <h3 class="font-semibold">Alami Surfing</h3>
-                                    <div class="flex items-center gap-1">
-                                        <img src="{{asset('assets/images/icons/location.svg')}}" class="w-[18px] h-[18px]" alt="icon">
-                                        <p class="font-semibold text-xs leading-[18px]">Indonesia</p>
-                                    </div>
-                                    <p class="font-bold text-sm leading-[21px] text-[#F97316]">Rp 3.690.000</p>
-                                </div>
-                            </div>
-                            <p class="w-fit flex shrink-0 items-center gap-[2px] rounded-full p-[6px_8px] bg-[#FFE5D3]">
-                                <img src="{{asset('assets/images/icons/Star 1.svg')}}" class="w-4 h-4" alt="star">
-                                <span class="font-semibold text-xs leading-[18px] text-[#F97316]">4/5</span>
-                            </p>
-                        </div>
-                    </a>
+                        </a>
+                    @empty
+                        <p>Data belum diinput</p>
+                    @endforelse
+                    
                 </div>
             </section>
         </main>
