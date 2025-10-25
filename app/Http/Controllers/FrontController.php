@@ -20,19 +20,19 @@ class FrontController extends Controller
     public function index() {
         $data = $this->frontService->getFrontPageData();
 
-        dd($data);
-        // return view('front.index', $data);
+        // dd($data);
+        return view('front.index', $data);
     }
 
     public function details(Ticket $ticket) {
-        dd($ticket);
-        // return view('front.details', compact('ticket'));
+        // dd($ticket);
+        return view('front.details', compact('ticket'));
     }
 
     public function category(Category $category) {
         // $categories = $this->frontService->getAllCategories();
-        dd($category);
-        // return view('front.category', compact('category'));
+        // dd($category);
+        return view('front.category', compact('category'));
     }
 
     // konsep MVC
