@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Juara Ticket</title>
+  <title>buyTickets</title>
   <link href="{{ asset('output.css') }}" rel="stylesheet">
   
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -83,7 +83,7 @@
 
                         @forelse ($sellers as $itemSeller)
                             <div class="swiper-slide !w-fit">
-                                <a href="city.html" class="card">
+                                <a href="{{ route('front.seller', $itemSeller->slug) }}" class="card">
                                     <div class="relative flex items-end w-[170px] h-[200px] shrink-0 rounded-[30px] bg-[#D9D9D9] overflow-hidden">
                                         <img src="{{Storage::url($itemSeller->photo)}}" class="absolute object-cover w-full h-full" alt="thumbnail">
                                         <div class="flex items-center justify-between w-full h-fit rounded-[17px] border border-white/40 p-[8px_10px] mx-[10px] mb-[10px] bg-[#94959966] backdrop-blur-sm">
@@ -143,7 +143,7 @@
         <nav id="Bottom-Nav" class="fixed bottom-0 w-full max-w-[640px] bg-white px-4 py-5 z-30">
             <ul class="flex justify-evenly max-[400px]:justify-between">
                 <li class=" text-[#F97316]">
-                    <a href="index.html" class="menu">
+                    <a href={{ route('front.index') }}" class="menu">
                         <div class="group flex flex-col items-center text-center gap-[10px]">
                             <div class="flex w-6 h-6 shrink-0">
                                 <svg class="transition-all duration-300 group-hover:fill-[#F97316]  fill-current" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -163,7 +163,7 @@
                     </a>
                 </li>
                 <li class=" text-[#13181D]">
-                    <a href="check-booking.html" class="menu">
+                    <a href="{{ route('front.check_booking') }}" class="menu">
                         <div class="group flex flex-col items-center text-center gap-[10px]">
                             <div class="flex w-6 h-6 shrink-0">
                                 <svg class="transition-all duration-300 group-hover:fill-[#F97316]  fill-current" width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
