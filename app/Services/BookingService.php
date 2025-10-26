@@ -27,7 +27,7 @@ class BookingService {
         return [
             'sub_total' => $subTotal,
             'total_ppn' => $totalPpn,
-            'ticket_id' => $totalAmount,
+            'total_amount' => $totalAmount,
         ];
     }
 

@@ -47,6 +47,15 @@ class CategoryResource extends Resource
                 ->imagePreviewHeight('150')
                 ->maxSize(2048)
                 ->required(),
+                
+                Forms\Components\FileUpload::make('icon_white')
+                ->label('Icon White')
+                ->image()
+                ->disk('public')
+                ->visibility('public')
+                ->imagePreviewHeight('150')
+                ->maxSize(2048)
+                ->required(),
             ]);
 
             

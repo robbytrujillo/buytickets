@@ -13,7 +13,7 @@
     <div class="relative flex flex-col w-full min-h-screen max-w-[640px] mx-auto bg-white">
         <div id="Top-Nav"  class="flex items-center justify-between w-full px-4 mt-[60px]">
             <a href="index.html">
-                <img src="{{asset('assets/images/logos/logo.svg')}}" class="flex shrink-0" alt="logo">
+                <img src="{{asset('assets/images/logos/buytickets.svg')}}" class="flex shrink-0" alt="logo">
             </a>
             <a href="#">
                 <img src="{{asset('assets/images/icons/heart-fill.svg')}}" class="w-12 h-12" alt="icon">
@@ -61,7 +61,7 @@
                         
                         @forelse ($categories as $itemCategory)
                             <div class="swiper-slide !w-fit">
-                                <a href="category.html" class="card">
+                                <a href="{{ route('front.category', $itemCategory->slug) }}" class="card">
                                     <div class="flex items-center w-fit rounded-full text-nowrap p-[14px_20px] gap-[10px] bg-[#F8F8F9]">
                                         <img src="{{Storage::url($itemCategory->icon)}}" class="w-6 h-6" alt="icon">
                                         <p class="font-bold text-sm leading-[21px]">{{ $itemCategory->name }}</p>
@@ -123,7 +123,7 @@
                                             </p>
                                         </div>
                                         <p class="font-bold text-sm leading-[21px] text-[#F97316]">
-                                            Rp {{ number_format($itemNewTicket->price, 0, '.', ',') }}
+                                            Rp {{ number_format($itemNewTicket->price, 0, ',', '.') }}
                                         </p>
                                     </div>
                                 </div>
