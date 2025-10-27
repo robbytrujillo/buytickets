@@ -2,19 +2,20 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\BookingTransactionResource\Pages;
-use App\Filament\Resources\BookingTransactionResource\RelationManagers;
-use App\Models\BookingTransaction;
-use App\Models\Ticket;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Notifications\Notification;
-use Filament\Resources\Resource;
 use Filament\Tables;
-use Filament\Tables\Filters\SelectFilter;
+use App\Models\Ticket;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Filament\Resources\Resource;
+use App\Models\BookingTransaction;
+use App\Jobs\SendBookingApprovedEmail;
+use Filament\Notifications\Notification;
+use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\BookingTransactionResource\Pages;
+use App\Filament\Resources\BookingTransactionResource\RelationManagers;
 
 class BookingTransactionResource extends Resource
 {
@@ -161,6 +162,9 @@ class BookingTransactionResource extends Resource
                 ->action(function (BookingTransaction $record) {
                     $record->is_paid = true;
                     $record->save();
+
+                    // email approved
+                    SendBookingApprovedEmail::dispatch($record);
 
                     // Trigger the custom notification
                     Notification::make()

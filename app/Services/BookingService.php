@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Jobs\SendBookingConfirmedEmail;
 use App\Models\BookingTransaction;
 use Illuminate\Support\Facades\DB;
 use App\Repositories\Contracts\TicketRepositoryInterface;
@@ -80,8 +81,13 @@ class BookingService {
            $newBooking = $this->bookingRepository->createBooking($validated);
 
            $bookingTransactionId = $newBooking->id;
+           
+           // kirim email kepada customer
+           SendBookingConfirmedEmail::dispatch($newBooking);
+        
         });
 
         return $bookingTransactionId;
+
     }
 }
